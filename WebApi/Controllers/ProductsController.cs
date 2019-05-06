@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.Data;
+using WebApi.Domain;
 
 namespace WebApi.Controllers
 {
@@ -10,18 +12,25 @@ namespace WebApi.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
+        private readonly ProductContext _context;
+         
+        public ProductsController(ProductContext context)
+        {
+            _context = context;
+        }
+
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<IEnumerable<Product>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return _context.Products.ToList();
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public ActionResult<Product> Get(Guid id)
         {
-            return "value";
+            return _context.Products.Where(p => p.Id == id).FirstOrDefault();
         }
 
         // POST api/values
