@@ -18,37 +18,23 @@ namespace WebApi.Controllers
         {
             _context = context;
         }
-
-        // GET api/values
+                
         [HttpGet]
         public ActionResult<IEnumerable<Product>> Get()
         {
             return _context.Products.ToList();
         }
-
-        // GET api/values/5
+                
         [HttpGet("{id}")]
         public ActionResult<Product> Get(Guid id)
         {
             return _context.Products.Where(p => p.Id == id).FirstOrDefault();
         }
-
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody] string value)
+               
+        [HttpPatch("{id}")]
+        public ActionResult UpdateDescription(Guid id, [FromBody] string description)
         {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            return Ok();            
         }
     }
 }

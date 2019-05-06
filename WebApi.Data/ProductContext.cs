@@ -66,9 +66,6 @@ namespace WebApi.Data
                     Price = 6999m
                 }
                 );
-
         }
-
-
     }
 }

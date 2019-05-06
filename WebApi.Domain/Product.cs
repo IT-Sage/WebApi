@@ -25,7 +25,6 @@ namespace WebApi.Domain
         public string ImgUri { get; set; }
 
         [Required]
-
         [DataType(DataType.Currency)]
         public decimal Price { get; set; }
 
