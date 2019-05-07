@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using WebApi.Controllers;
 using WebApi.Data;
-using WebApi.Domain;
 using WebApi.Mappers;
 using WebApi.Models;
 
@@ -95,6 +94,7 @@ namespace Tests
 
                 var productInitial = productsController.Get(id);
                 ProductDto productDtoInitial = (productInitial.Result as OkObjectResult).Value as ProductDto;
+
                 Assert.That("Asus", Is.Not.EqualTo(productDtoInitial.Description));
                 
                 var statusUpdated = productsController.UpdateDescription(id,"Asus");
