@@ -1,10 +1,11 @@
-﻿using System;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using WebApi.Data;
 using WebApi.Domain;
+using WebApi.Models;
 
 namespace WebApi.Controllers
 {
@@ -12,29 +13,35 @@ namespace WebApi.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly ProductContext _context;
-         
-        public ProductsController(ProductContext context)
+        private readonly ProductContext context;
+        private readonly IMapper mapper;
+        
+        public ProductsController(ProductContext context, IMapper mapper)            
         {
-            _context = context;
+            this.context = context;
+            this.mapper = mapper;
         }
-                
+
         [HttpGet]
-        public ActionResult<IEnumerable<Product>> Get()
+        public ActionResult<IEnumerable<ProductDto>> Get()
         {
-            return _context.Products.ToList();
+            List<Product> products = context.Products.ToList();
+            IEnumerable<ProductDto> productDtos = mapper.Map<List<Product>, IEnumerable<ProductDto>>(products);
+            return Ok(productDtos);
         }
-                
+
         [HttpGet("{id}")]
-        public ActionResult<Product> Get(Guid id)
+        public ActionResult<ProductDto> Get(Guid id)
         {
-            return _context.Products.Where(p => p.Id == id).FirstOrDefault();
+            Product product = context.Products.Where(p => p.Id == id).FirstOrDefault();
+            ProductDto productDto = mapper.Map<ProductDto>(product);
+            return Ok(productDto);
         }
-               
+
         [HttpPatch("{id}")]
         public ActionResult UpdateDescription(Guid id, [FromBody] string description)
         {
-            return Ok();            
+            return Ok();
         }
     }
 }
