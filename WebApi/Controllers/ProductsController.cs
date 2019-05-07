@@ -40,8 +40,10 @@ namespace WebApi.Controllers
 
         [HttpPatch("{id}")]
         public ActionResult UpdateDescription(Guid id, [FromBody] string description)
-        {
-            return Ok();
+        {            
+            context.Products.Where(p => p.Id == id).FirstOrDefault().Description = description;
+            context.SaveChanges();
+            return NoContent();
         }
     }
 }

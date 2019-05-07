@@ -82,6 +82,33 @@ namespace Tests
             }
         }
 
+        [Test]
+        public void UpdatesProductCorrectly()
+        {
+            using (var context = new ProductContext(optionsBuilder.Options))
+            {
+                context.Database.EnsureCreated();
+
+                ProductsController productsController = new ProductsController(context, mapper);
+
+                Guid id = new Guid("2136EAAD-4D96-435C-ABCC-7A3B549CFCDD");
+
+                var productInitial = productsController.Get(id);
+                ProductDto productDtoInitial = (productInitial.Result as OkObjectResult).Value as ProductDto;
+                Assert.That("Asus", Is.Not.EqualTo(productDtoInitial.Description));
+                
+                var statusUpdated = productsController.UpdateDescription(id,"Asus");
+
+                Assert.That(statusUpdated, Is.InstanceOf(typeof(NoContentResult)));
+                Assert.That((statusUpdated as NoContentResult).StatusCode, Is.EqualTo(204));
+
+                var productUpdated = productsController.Get(id);
+                ProductDto productDtoUpdated = (productUpdated.Result as OkObjectResult).Value as ProductDto;
+
+                Assert.That("Asus", Is.EqualTo(productDtoUpdated.Description));
+            }
+        }
+
 
     }
 }
