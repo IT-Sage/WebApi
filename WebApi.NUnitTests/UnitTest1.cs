@@ -69,7 +69,6 @@ namespace Tests
                 ProductsController productsController = new ProductsController(context, mapper);
 
                 Guid id = new Guid("2136EAAD-4D96-435C-ABCC-7A3B549CFCDD");
-
                 var product = productsController.Get(id);
 
                 Assert.That(product.Result, Is.InstanceOf(typeof(OkObjectResult)));
@@ -91,7 +90,6 @@ namespace Tests
                 ProductsController productsController = new ProductsController(context, mapper);
 
                 Guid id = new Guid("2136EAAD-4D96-435C-ABCC-7A3B549CFCDD");
-
                 var productInitial = productsController.Get(id);
                 ProductDto productDtoInitial = (productInitial.Result as OkObjectResult).Value as ProductDto;
 
@@ -106,6 +104,40 @@ namespace Tests
                 ProductDto productDtoUpdated = (productUpdated.Result as OkObjectResult).Value as ProductDto;
 
                 Assert.That("Asus", Is.EqualTo(productDtoUpdated.Description));
+            }
+        }
+
+        [Test]
+        public void GetProductNotFound()
+        {
+            using (var context = new ProductContext(optionsBuilder.Options))
+            {
+                context.Database.EnsureCreated();
+
+                ProductsController productsController = new ProductsController(context, mapper);
+
+                Guid id = Guid.Empty;
+                var product = productsController.Get(id);
+
+                Assert.That(product.Result, Is.InstanceOf(typeof(NotFoundResult)));
+                Assert.That((product.Result as NotFoundResult).StatusCode, Is.EqualTo(404));
+            }
+        }
+
+        [Test]
+        public void UpdateDescriptionProductNotFound()
+        {
+            using (var context = new ProductContext(optionsBuilder.Options))
+            {
+                context.Database.EnsureCreated();
+
+                ProductsController productsController = new ProductsController(context, mapper);
+
+                Guid id = Guid.Empty;
+                var result = productsController.UpdateDescription(id,"description");
+
+                Assert.That(result, Is.InstanceOf(typeof(NotFoundResult)));
+                Assert.That((result as NotFoundResult).StatusCode, Is.EqualTo(404));
             }
         }
     }
