@@ -4,6 +4,7 @@ Simple .NET Core Web API application handling Product requests.
 
 ### Prerequisities
 * Visual Studio 2017
+* Set up proper connection string in [appsettings.json](https://github.com/neon333/WebApi/blob/master/WebApi/appsettings.json)
 ### How to run
 * Clone this repository to Visual Studio
 * Update Database using eg. Package Manager Console in VS 
