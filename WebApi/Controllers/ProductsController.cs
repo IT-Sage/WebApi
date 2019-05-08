@@ -79,7 +79,7 @@ namespace WebApi.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]        
-        public ActionResult UpdateDescription(Guid id, [FromBody] string description)
+        public ActionResult UpdateDescription(Guid id, [FromForm] string description)
         {
             Product product = context.Products.Where(p => p.Id == id).FirstOrDefault();
             if (product == null)
