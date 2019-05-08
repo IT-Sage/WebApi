@@ -12,8 +12,7 @@ Simple .NET Core Web API application handling Product requests.
   * This creates DB structure and inserts data from prepared seed
 * Build and run in VS
   * You should get to /swagger page
-  * Currently exists only version 1, so take care of that when using swagger
-  * Provide description text in the quotation marks when updating description of the Product
+  * Currently exists only version 1, so take care of that when using swagger  
   
 * Unit Tests
   * Just use [Test Explorer](https://docs.microsoft.com/en-us/visualstudio/test/run-unit-tests-with-test-explorer?view=vs-2017) in VS
