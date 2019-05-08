@@ -108,7 +108,5 @@ namespace Tests
                 Assert.That("Asus", Is.EqualTo(productDtoUpdated.Description));
             }
         }
-
-
     }
 }

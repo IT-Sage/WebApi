@@ -11,7 +11,5 @@ namespace WebApi.Mappers
             CreateMap<ProductDto, Product>();
             CreateMap<Product, ProductDto>();
         }
-        
-
     }
 }

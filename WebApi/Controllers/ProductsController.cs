@@ -8,8 +8,9 @@ using WebApi.Domain;
 using WebApi.Models;
 
 namespace WebApi.Controllers
-{    
-    [Route("api/[controller]")]
+{
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
     {
