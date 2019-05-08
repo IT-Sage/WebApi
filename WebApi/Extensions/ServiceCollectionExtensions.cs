@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Swashbuckle.AspNetCore.Swagger;
 using WebApi.Data;
 using WebApi.Mappers;
 
@@ -26,6 +27,16 @@ namespace WebApi.Extensions
 
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
+
+            return services;
+        }
+
+        public static IServiceCollection AddCustomizedSwagger(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "API Documentation", Version = "v1" });
+            });
 
             return services;
         }

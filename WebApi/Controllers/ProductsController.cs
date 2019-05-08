@@ -8,7 +8,7 @@ using WebApi.Domain;
 using WebApi.Models;
 
 namespace WebApi.Controllers
-{
+{    
     [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
@@ -39,6 +39,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPatch("{id}")]
+        [ProducesResponseType(204)]
         public ActionResult UpdateDescription(Guid id, [FromBody] string description)
         {            
             context.Products.Where(p => p.Id == id).FirstOrDefault().Description = description;
